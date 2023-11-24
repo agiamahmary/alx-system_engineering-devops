@@ -16,7 +16,7 @@ elif [ "$i" -eq 17 ]
 then
 	echo "bad luck from Italy"
 else
-        echo "Best School"
+        echo "$i"
 
 fi
 
