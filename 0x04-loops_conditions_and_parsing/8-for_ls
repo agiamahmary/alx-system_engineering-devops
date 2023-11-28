@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#prints the  content of a directory in long format removing the first dash
+for file in *;
+do
+	if [ -f "$file" ];
+	then
+		content=$(echo "$file" | cut -d '-' -f2)
+		echo "$content"
+	fi
+done

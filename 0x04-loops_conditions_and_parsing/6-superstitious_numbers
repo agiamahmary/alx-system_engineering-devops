@@ -4,21 +4,23 @@ i=1
 while  (( i <  21 ))
 do
 
-if [ "$i" -eq 4 ]
-then
+case $i in
+4)
         echo "bad luck from China"
+;;
 
-elif [ "$i" -eq 9 ]
-then
+9)
         echo "bad luck from Japan"
+;;
 
-elif [ "$i" -eq 17 ]
-then
+17)
 	echo "bad luck from Italy"
-else
+;;
+*)
         echo "$i"
+;;
 
-fi
+esac
 
 ((i++))
 
