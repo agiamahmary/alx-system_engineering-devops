@@ -1,0 +1,13 @@
+#!/bin/bash
+# Display the header
+echo "Proto   PID/Program name"
+
+# Display listening ports for TCP
+netstat -tuln | awk '$6 == "LISTEN" && $1 ~ /^tcp/ {print $1"      "$NF}' | awk '{split($NF,a,"/"); print a[1]"   "$7}' | sort -u
+
+# Display listening ports for UDP
+netstat -uln | awk '$6 == "UNCONN" && $1 ~ /^udp/ {print $1"      "$NF}' | awk '{split($NF,a,"/"); print a[1]"   "$6}' | sort -u
+
+# Display listening UNIX domain sockets
+netstat -lx | awk '$6 == "LISTEN" && $1 ~ /^unix/ {print $1"   "$NF}' | awk '{print $1"   "$NF}' | sort -u
+
