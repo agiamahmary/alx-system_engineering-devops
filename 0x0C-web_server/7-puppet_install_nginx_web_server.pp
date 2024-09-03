@@ -11,6 +11,13 @@ file {'/etc/nginx/sites-enabled/default':
   require => Package['nginx'],
 }
 
+file {'/etc/nginx/sites-available/default':
+  ensure => file,
+  mode   => '0755',
+  owner  => '$::user',
+  group  => '$::group',
+}
+
 service {'nginx':
   ensure    => running,
   provider  => 'service',
@@ -30,6 +37,9 @@ augeas {'301 Moved Permanently':
 
 file {'/var/www/html/index.html':
   ensure  => file,
+  mode    => '0755'
+  owner   => '$::user',
+  group   => '$::group',
   content => 'Hello World!',
   require => Package['nginx'],
 }
