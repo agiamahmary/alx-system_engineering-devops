@@ -3,11 +3,13 @@
 # Configure your Nginx server so that /redirect_me 
 # is redirecting to another page.
 
-sudo service nginx start
+sudo apt-get update
+sudo apt-get install -y nginx
 sudo su <<EOF
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 sed -i '/server_name _;/a\
-        location /redirect_me /redirect_me/ {\\
+        location /redirect_me {\\
                 return 301 https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi;\\
         }' /etc/nginx/sites-available/default
 EOF
-sudo service nginx restart
+sudo service nginx start
