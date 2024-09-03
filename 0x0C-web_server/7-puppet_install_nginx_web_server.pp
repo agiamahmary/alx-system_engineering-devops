@@ -1,35 +1,37 @@
 #  Install and configure an Nginx server using Puppet
 
 package {'nginx':
-  ensure   => '1.4.6',
+  ensure   => installed,
   provider => 'apt',
 }
 
 file {'/etc/nginx/sites-enabled/default':
   ensure  => link,
+  path    => '/etc/nginx/sites-enabled/default',
   target  => '/etc/nginx/sites-available/default',
   require => Package['nginx'],
 }
 
 file {'/etc/nginx/sites-available/default':
-  ensure => file,
-  mode   => '0755',
-  owner  => '$::user',
-  group  => '$::group',
+  ensure  => file,
+  owner   => 'root',
+  group   => 'root',
+  path    => '/etc/nginx/sites-available/default',
+  mode    => '0766',
+  require => Package['nginx'],
 }
 
 service {'nginx':
   ensure    => running,
-  provider  => 'service',
   subscribe => File['/etc/nginx/sites-enabled/default'],
 }
 
 
 augeas {'301 Moved Permanently':
-  context => '/etc/nginx/sites-enabled/default',
+  context => '/etc/nginx/sites-available/default',
   changes => [
-    'SET /server[1]/location[last()+1]/path "/redirect_me"',
-    'SET /server[1]/location[last()+1]/return "301 "https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi',
+    'set /server[1]/location[last()+1]/path "/redirect_me"',
+    'set /server[1]/location[last()+1]/return "301 "https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi',
   ],
   require => Package['nginx'],
   notify  => Service['nginx'],
@@ -37,9 +39,9 @@ augeas {'301 Moved Permanently':
 
 file {'/var/www/html/index.html':
   ensure  => file,
-  mode    => '0755'
-  owner   => '$::user',
-  group   => '$::group',
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0766',
   content => 'Hello World!',
   require => Package['nginx'],
 }
