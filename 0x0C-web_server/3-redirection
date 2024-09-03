@@ -3,6 +3,8 @@
 # is redirecting to another page.
 
 sudo su <<EOF
+apt update
+apt install nginx
 sed -i '/server_name _;/a\
         location /redirect_me {\\
                 return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\\
