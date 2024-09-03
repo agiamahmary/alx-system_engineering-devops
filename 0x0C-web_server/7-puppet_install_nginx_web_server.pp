@@ -27,3 +27,9 @@ augeas {'301 Moved Permanently':
   require => Package['nginx'],
   notify  => Service['nginx'],
 }
+
+file {'/var/www/html/index.html':
+  ensure  => file,
+  content => 'Hello World!',
+  require => Package['nginx'],
+}
