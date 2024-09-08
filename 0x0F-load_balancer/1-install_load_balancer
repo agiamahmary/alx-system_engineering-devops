@@ -18,5 +18,5 @@ backend http_back\\
         balance roundrobin\\
         server server1 54.175.134.91:80 check\\
         server server2 100.25.104.180:80 check' /etc/haproxy/haproxy.cfg
-service haproxy restart
 EOF
+service haproxy restart
