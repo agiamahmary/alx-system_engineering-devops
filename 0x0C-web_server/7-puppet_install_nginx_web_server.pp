@@ -23,19 +23,21 @@ file {'/etc/nginx/sites-available/default':
 
 service {'nginx':
   ensure    => running,
-  subscribe => File['/etc/nginx/sites-available/default'],
+  subscribe => Augeas['301 Moved Permanently'],
 }
 
 
-augeas {'301 Moved Permanently':
-  context => '/etc/nginx/sites-available/default',
+augeas { '301 Moved Permanently':
+  context => '/files/etc/nginx/sites-available/default',
   changes => [
-    'set /server/location[last()]/path "/redirect_me"',
-    'set /server/location[last()]/return "301 https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi"',
+    'ins location after server/location[last()]',
+    'set server/location[last()]/#uri /redirect_me',
+    'set server/location[last()]/return "301 https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi"',
   ],
   require => Package['nginx'],
-  notify  => Service['nginx'],
+  notify  => Service['nginx']
 }
+
 
 file {'/var/www/html/index.html':
   ensure  => file,
