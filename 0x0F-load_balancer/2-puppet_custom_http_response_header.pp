@@ -22,7 +22,7 @@ augeas { 'add__header':
   context => '/files/etc/nginx/sites-enabled/default',
   changes => [
     'ins add_header after server/server_name',
-    'set server/add_header "X-Custom-Header $hostname always"',
+    'set server/add_header "X-Served-By $hostname always"',
   ],
   require => Package['nginx'],
   notify  => Service['nginx'],
