@@ -16,10 +16,10 @@ file {'/etc/nginx/sites-available/default':
 
 service {'nginx':
   ensure    => running,
-  subscribe => Augeas['add__header'],
+  subscribe => Augeas['add_header'],
 }
-augeas { 'add__header':
-  context => '/files/etc/nginx/sites-enabled/default',
+augeas { 'add_header':
+  context => '/files/etc/nginx/sites-available/default',
   changes => [
     'ins add_header after server/server_name',
     'set server/add_header "X-Served-By $hostname always"',
