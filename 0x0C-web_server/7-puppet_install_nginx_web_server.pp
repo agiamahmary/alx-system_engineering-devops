@@ -30,8 +30,8 @@ service {'nginx':
 augeas {'301 Moved Permanently':
   context => '/etc/nginx/sites-available/default',
   changes => [
-    'set /server[1]/location[last()+1]/path "/redirect_me"',
-    'set /server[1]/location[last()+1]/return "301 https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi"',
+    'set /server[1]/location[last()]/path "/redirect_me"',
+    'set /server[1]/location[last()]/return "301 https://youtu.be/B9LYL5OO7eQ?si=Z0UqqX7R97tM-7Gi"',
   ],
   require => Package['nginx'],
   notify  => Service['nginx'],
