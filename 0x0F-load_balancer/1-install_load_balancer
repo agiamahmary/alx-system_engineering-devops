@@ -5,7 +5,7 @@
 # Make sure that HAproxy can be managed via an init script
 
 sudo apt-get update
-sudo apt-get install haproxy
+sudo apt-get install haproxy -y
 service haproxy start
 sudo su << EOF
 sed -i '$ a\\
