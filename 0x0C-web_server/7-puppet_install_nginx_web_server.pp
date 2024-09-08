@@ -23,7 +23,7 @@ file {'/etc/nginx/sites-available/default':
 
 service {'nginx':
   ensure    => running,
-  subscribe => File['/etc/nginx/sites-enabled/default'],
+  subscribe => File['/etc/nginx/sites-available/default'],
 }
 
 
