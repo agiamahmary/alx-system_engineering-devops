@@ -1,7 +1,7 @@
 #  Install and configure an Nginx server using Puppet
 
 exec {'update':
-  command  => 'apt-get update'
+  command  => 'apt-get update',
   provider => 'shell',
 }
 
