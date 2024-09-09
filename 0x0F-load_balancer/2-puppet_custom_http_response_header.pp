@@ -1,8 +1,14 @@
 #  Install and configure an Nginx server using Puppet
 
+exec {'update':
+  command  => 'apt-get update'
+  provider => 'shell',
+}
+
 package {'nginx':
   ensure   => installed,
   provider => 'apt',
+  require  => Exec['update'],
 }
 
 file {'/etc/nginx/sites-available/default':
@@ -18,6 +24,7 @@ service {'nginx':
   ensure    => running,
   subscribe => Augeas['add_header'],
 }
+
 augeas { 'add_header':
   context => '/files/etc/nginx/sites-available/default',
   changes => [
