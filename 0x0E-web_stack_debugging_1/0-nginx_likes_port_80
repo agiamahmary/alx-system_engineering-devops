@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 # listening on port 80 of all the servers active IPv4 IPs
+apt-get update
+apt-get install nginx -y
 service nginx start
