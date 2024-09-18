@@ -14,7 +14,7 @@ dig_url () {
        	        dig "$i.$1" | awk -v subdom="$i" '
 		    /;; ANSWER SECTION:/ { in_answer_section = 1; next }
 	            in_answer_section && /IN[[:space:]]A/ {	
-		        print "The subdomain", subdom, "is a A record and points to", $5
+		        print "The subdomain", subdom, "is a", $4, "record and points to", $5
 			in_answer_section = 0
 		    }
 	        '
@@ -23,7 +23,7 @@ dig_url () {
         dig "$2.$1" | awk -v subdom="$2" '
             /;; ANSWER SECTION:/ { in_answer_section = 1; next }
             in_answer_section && /IN[[:space:]]A/ {       
-               print "The subdomain", subdom, "is a A record and points to", $5
+               print "The subdomain", subdom, "is a", $4, "record and points to", $5
 	       in_answer_section = 0
             }'
     fi
