@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# write a Bash script that will display information about subdomains
+
+dig_url () {
+    if [[ "$#" -lt 1 || "$#" -gt 2 ]]
+    then
+	    exit 1;
+    fi
+
+    if [[ "$#" -eq 1 ]]
+    then
+	    for i in www lb-01 web-01 web-02
+	    do
+       	        dig "$i.$1" | awk -v subdom="$i" '
+		    /;; ANSWER SECTION:/ { in_answer_section = 1; next }
+	            in_answer_section && /IN[[:space:]]A/ {	
+		        print "The subdomain", subdom, "is A record and points to", $5
+			in_answer_section = 0
+		    }
+	        '
+            done
+    else
+        dig "$2.$1" | awk -v subdom="$2" '
+            /;; ANSWER SECTION:/ { in_answer_section = 1; next }
+            in_answer_section && /IN[[:space:]]A/ {       
+               print "The subdomain", subdom, "is A record and points to", $5
+	       in_answer_section = 0
+            }'
+    fi
+}
+
+dig_url "$@"
