@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # listening on port 80 of all the servers active IPv4 IPs
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo systemctl nginx start
-sudo systemctl nginx enable
+sudo su <<EOF
+apt-get purge nginx
+apt-get install nginx -y
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+systemctl nginx start
+EOF
