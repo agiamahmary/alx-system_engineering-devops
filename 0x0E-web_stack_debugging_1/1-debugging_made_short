@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # listening on port 80 of all the servers active IPv4 IPs
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
+sed -i 's/8[0-9]*/80/g' /etc/nginx/sites-enabled/default
 service nginx restart
-pkill -o nginx
+service nginx stop
