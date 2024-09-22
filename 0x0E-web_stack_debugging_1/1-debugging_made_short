@@ -3,5 +3,3 @@
 sudo su << EOF sed -i 's/[[:space:]]listen 8[0-9]*;?/listen 80;/' /etc/nginx/sites-available/default
 EOF
 sudo service nginx reload
-
-
