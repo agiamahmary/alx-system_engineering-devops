@@ -4,5 +4,5 @@ sudo su <<EOF
 apt-get purge nginx
 apt-get install nginx -y
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-systemctl start nginx
+service nginx start
 EOF
