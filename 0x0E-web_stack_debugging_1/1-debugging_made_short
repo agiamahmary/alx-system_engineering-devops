@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # listening on port 80 of all the servers active IPv4 IPs
-sudo sed -i 's/[[:space:]]listen 8[0-9]*;?/listen 80;/' /etc/nginx/sites-available/default
-sudo service nginx restart
-sudo service nginx stop
+sudo su << EOF sed -i 's/[[:space:]]listen 8[0-9]*;?/listen 80;/' /etc/nginx/sites-available/default
+EOF
+sudo service nginx reload
+
+
