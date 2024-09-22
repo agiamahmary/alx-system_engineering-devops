@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # listening on port 80 of all the servers active IPv4 IPs
-sudo sed -i 's/[[:space:]]listen 8[0-9]*;?/listen 80;/g' /etc/nginx/sites-available/default
-sudo service nginx restart
+sudo apt-get purge nginx -y
+sudo apt-get install nginx -y
+sudo service nginx start
 pkill -o nginx
