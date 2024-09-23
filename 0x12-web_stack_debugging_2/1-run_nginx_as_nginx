@@ -3,4 +3,5 @@
 sudo sed -i 's/www-data/nginx/' /etc/nginx/nginx.conf
 sudo sed -i 's/80/8080/' /etc/nginx/sites-available/default
 sudo chmod 644 /etc/nginx/nginx.conf
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo -u nginx service nginx restart
