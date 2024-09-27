@@ -25,6 +25,14 @@ service {'nginx':
   subscribe => Augeas['add_header'],
 }
 
+exec {'filter_sites_available':
+  command => "sed -i '/let filter = incl/a\\
+           . incl \"/etc/nginx/sites-available/*\"
+' /usr/share/augeas/lenses/dist/nginx.aug",
+  unless  => "grep '/etc/nginx/sites-available/*' /usr/share/augeas/lenses/dist/nginx.aug",
+  path    => ['/bin', '/usr/bin'],
+}
+
 augeas { 'add_header':
   context => '/files/etc/nginx/sites-available/default',
   changes => [
@@ -32,5 +40,5 @@ augeas { 'add_header':
     'set server/add_header "X-Served-By $hostname always"',
   ],
   require => Package['nginx'],
-  notify  => Service['nginx'],
+  notify  => Service['nginx']
 }
